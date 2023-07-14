@@ -387,8 +387,8 @@ function expandArrayByN(arr, n) {
     return "Перший вхідний параметр має бути масивом, другий - числом";
   }
 
-  const expanedArray = arr.flatMap((num) => num === num[n]);
-  return expanedArray;
+  const expandedArray = arr.flatMap((num) => Array(n).fill(num));
+  return expandedArray;
   // Перевіряємо, чи вхідні параметри є масивом та числом відповідно, якщо ні повертаємо 'Перший вхідний параметр має бути масивом, другий - числом'
   // Використовуємо метод flatMap для створення нового масиву, де кожне число повторюється n разів
   // Повертаємо розширений масив
@@ -436,8 +436,10 @@ function findDuplicateElements(arr) {
   if (!Array.isArray(arr)) {
     return [];
   }
-  const duplicate = arr.filter((element) => element);
-
+  const duplicateElements = arr.filter((num, index) => {
+    return arr.indexOf(num) !== index;
+  });
+  return duplicateElements;
   // Перевіряємо, чи вхідний параметр є масивом, якщо ні, повертаємо пустий масив
   // Використовуємо метод filter() для вибірки лише дубльованих елементів
   // Перевіряємо, чи є індекс поточного елемента відмінним від індексу першого входження елемента, та повертаємо результат
@@ -459,6 +461,11 @@ function capitalizeWords(arr) {
   if (!Array.isArray(arr)) {
     return [];
   }
+  const capitalizedArray = arr.map((word) => {
+    const capitalizeWord = word.charAt(0).toUpperCase() + word.slice(1);
+    return capitalizeWord;
+  });
+  return capitalizedArray;
   // Перевіряємо, чи вхідний параметр є масивом, якщо ні, повертаємо пустий масив
   // Використовуємо метод map() для перетворення кожного слова в рядку з першою великою літерою
   // Перетворюємо першу літеру слова у верхній регістр да додамо до неї всі символи слова крім першого
@@ -482,7 +489,9 @@ function calculateTotalPrice(arr) {
   if (!Array.isArray(arr)) {
     return 0;
   }
-  const totalPrice = arr.reduce((accumulator, price) => accumulator + price);
+  const totalPrice = arr.reduce((total, product) => {
+    return total + product.price;
+  }, 0);
   return totalPrice;
   // Перевіряємо, чи вхідний параметр є масивом, якщо ні, повертаємо 0
   // Використовуємо метод reduce() для обчислення загальної ціни
